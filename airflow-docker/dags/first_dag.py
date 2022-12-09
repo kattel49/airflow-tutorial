@@ -27,4 +27,17 @@ with DAG(
         bash_command="echo Hey, I will run after task 2"
     )
 
-    task1.set_downstream(task2)
+    task3 = BashOperator(
+        task_id="third_task",
+        bash_command="echo Hey, I will run along with task 2 after task 1"
+    )
+    # method 1
+    # task1.set_downstream(task2)
+    # task1.set_downstream(task3)
+
+    # method 2
+    #task1 >> task2
+    #task1 >> task3
+
+    # method 3
+    task1 >> [task2, task3]
